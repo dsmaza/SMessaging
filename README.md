@@ -1,0 +1,2 @@
+# SMessaging
+Simple messaging framework
