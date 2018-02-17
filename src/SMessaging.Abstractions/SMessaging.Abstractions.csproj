@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>DSmaza</Authors>
+    <Company>DSmaza</Company>
+    <Product>SMessaging</Product>
+    <Description>Simple messaging framework</Description>
+    <RepositoryUrl>https://github.com/dsmaza/SMessaging</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/dsmaza/SMessaging</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
