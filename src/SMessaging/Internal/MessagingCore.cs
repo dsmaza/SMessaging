@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using SMessaging.Abstractions;
 
 [assembly: InternalsVisibleTo("SMessaging.Tests")]
@@ -43,13 +44,16 @@ namespace SMessaging.Internal
         private async Task<MessageResult> HandleMessage<TMessage, THandler>(TMessage message)
             where THandler : class, IHandleMessage<TMessage>
         {
-            var handler = serviceProvider.GetService(typeof(THandler)) as THandler;
-            if (handler == null)
+            using (var scope = serviceProvider.CreateScope())
             {
-                throw new MessagingInfrastructureException($"Handler '{typeof(THandler).Name}' not found");
-            }
+                var handler = scope.ServiceProvider.GetService(typeof(THandler)) as THandler;
+                if (handler == null)
+                {
+                    throw new MessagingInfrastructureException($"Handler '{typeof(THandler).Name}' not found");
+                }
 
-            return await handler.Handle(message);
+                return await handler.Handle(message);
+            }
         }
 
         public async Task<MessageResult> Send<TMessage>(TMessage message)
