@@ -20,7 +20,7 @@ namespace AspNetCoreMessagingSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddMessaging();
+            services.AddSimpleMessaging();
             services.AddTransient<ISampleDbContext, SampleDbContext>();
         }
 

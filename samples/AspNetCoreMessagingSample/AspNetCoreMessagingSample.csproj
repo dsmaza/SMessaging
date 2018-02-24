@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SMessaging.Abstractions\SMessaging.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\SMessaging.Extensions.DependencyInjection\SMessaging.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\src\SMessaging\SMessaging.csproj" />
   </ItemGroup>
 

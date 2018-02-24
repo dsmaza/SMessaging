@@ -20,7 +20,7 @@ namespace AspNetCoreCqrsSample.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddMessaging();
+            services.AddSimpleMessaging();
             services.AddInfrastructure(Configuration);
         }
 

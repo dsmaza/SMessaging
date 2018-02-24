@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreCqrsSample", "sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppMessagingSample", "samples\ConsoleAppMessagingSample\ConsoleAppMessagingSample.csproj", "{2B13BC0B-0560-47FA-AD78-531E491BA06C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMessaging.Extensions.DependencyInjection", "src\SMessaging.Extensions.DependencyInjection\SMessaging.Extensions.DependencyInjection.csproj", "{ECDBF6BB-5B58-4190-A464-2DA07499F844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{2B13BC0B-0560-47FA-AD78-531E491BA06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B13BC0B-0560-47FA-AD78-531E491BA06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B13BC0B-0560-47FA-AD78-531E491BA06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECDBF6BB-5B58-4190-A464-2DA07499F844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECDBF6BB-5B58-4190-A464-2DA07499F844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECDBF6BB-5B58-4190-A464-2DA07499F844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECDBF6BB-5B58-4190-A464-2DA07499F844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

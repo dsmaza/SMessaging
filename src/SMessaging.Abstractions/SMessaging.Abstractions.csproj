@@ -6,9 +6,10 @@
     <Authors>DSmaza</Authors>
     <Company>DSmaza</Company>
     <Product>SMessaging</Product>
-    <Description>Simple messaging framework</Description>
+    <Description>Abstractions for SMessaging</Description>
     <RepositoryUrl>https://github.com/dsmaza/SMessaging</RepositoryUrl>
     <PackageProjectUrl>https://github.com/dsmaza/SMessaging</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>

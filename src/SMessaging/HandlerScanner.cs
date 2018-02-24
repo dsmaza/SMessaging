@@ -7,7 +7,7 @@ using SMessaging.Abstractions;
 
 namespace SMessaging
 {
-    public class HandlerScanner : IEnumerable<KeyValuePair<Type, Type>>
+    public sealed class HandlerScanner : IEnumerable<KeyValuePair<Type, Type>>
     {
         private readonly Dictionary<Type, Type> messageHandlerMappings = new Dictionary<Type, Type>();
 

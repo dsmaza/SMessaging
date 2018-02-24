@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 using SMessaging;
 using SMessaging.Abstractions;
-using SMessaging.Internal;
+using SMessaging.Extensions.DependencyInjection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServicesExtensions
     {
-        public static void AddMessaging(this IServiceCollection services, HandlerScanner handlerScanner = null)
+        public static void AddSimpleMessaging(this IServiceCollection services, HandlerScanner handlerScanner = null)
         {
             if (handlerScanner == null)
             {
@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddTransient(item.Value);
             }
 
-            services.AddSingleton<IMessaging>(serviceProvider => new MessagingCore(new HandlerProvider(serviceProvider), handlerScanner));
+            services.AddSingleton<IMessaging>(serviceProvider => new SimpleMessaging(new MsDiHandlerProvider(serviceProvider), handlerScanner));
         }
     }
 }

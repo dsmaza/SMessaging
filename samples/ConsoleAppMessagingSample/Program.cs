@@ -14,8 +14,8 @@ namespace ConsoleAppMessagingSample
 
         static async Task Run()
         {
-            var messaging = new MessagingProvider().Get();
-            await messaging.Send(new SimpleMessage());
+            var result = await new SimpleMessaging().Send(new SimpleMessage());
+            Console.WriteLine(result.Value);
         }
     }
 }

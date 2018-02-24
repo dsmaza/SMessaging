@@ -1,25 +1,19 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+using SMessaging.Abstractions;
 
 namespace SMessaging.Internal
 {
-    class HandlerProvider
+    class HandlerProvider : IHandlerProvider
     {
         private readonly IServiceProvider serviceProvider;
-        private readonly bool useMSDependencyInjection;
 
         public HandlerProvider(IServiceProvider serviceProvider)
         {
-            useMSDependencyInjection = serviceProvider?.GetType().Namespace == "Microsoft.Extensions.DependencyInjection";
             this.serviceProvider = serviceProvider ?? new ActivatorServiceProvider();
         }
 
         public IHandlerScope CreateScope()
         {
-            if (useMSDependencyInjection)
-            {
-                return new ServiceHandlerScope(serviceProvider.CreateScope());
-            }
             return new NullHandlerScope(t => serviceProvider.GetService(t));
         }
 
@@ -28,6 +22,26 @@ namespace SMessaging.Internal
             public object GetService(Type serviceType)
             {
                 return Activator.CreateInstance(serviceType);
+            }
+        }
+
+        private class NullHandlerScope : IHandlerScope
+        {
+            private Func<Type, object> serviceProvider;
+
+            public NullHandlerScope(Func<Type, object> serviceProvider)
+            {
+                this.serviceProvider = serviceProvider;
+            }
+
+            public object GetService(Type serviceType)
+            {
+                return serviceProvider?.Invoke(serviceType);
+            }
+
+            public void Dispose()
+            {
+                serviceProvider = null;
             }
         }
     }

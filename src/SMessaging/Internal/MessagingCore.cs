@@ -12,11 +12,11 @@ namespace SMessaging.Internal
     {
         private static readonly MethodInfo addMessageHandler = typeof(MessagingCore).GetMethod(nameof(AddMessageHandler), BindingFlags.Instance | BindingFlags.NonPublic);
         private readonly Dictionary<Type, Func<object, Task<MessageResult>>> messageHandlers = new Dictionary<Type, Func<object, Task<MessageResult>>>();
-        private readonly HandlerProvider handlerProvider;
+        private readonly IHandlerProvider handlerProvider;
 
-        public MessagingCore(HandlerProvider handlerProvider, HandlerScanner handlerScanner)
+        public MessagingCore(IHandlerProvider handlerProvider, HandlerScanner handlerScanner)
         {
-            this.handlerProvider = handlerProvider;
+            this.handlerProvider = handlerProvider ?? throw new ArgumentNullException(nameof(handlerProvider));
             RegisterHandlers(handlerScanner);
         }
 
