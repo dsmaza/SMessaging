@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using SMessaging.Abstractions;
 
 [assembly: InternalsVisibleTo("SMessaging.Tests")]
@@ -13,11 +12,11 @@ namespace SMessaging.Internal
     {
         private static readonly MethodInfo addMessageHandler = typeof(MessagingCore).GetMethod(nameof(AddMessageHandler), BindingFlags.Instance | BindingFlags.NonPublic);
         private readonly Dictionary<Type, Func<object, Task<MessageResult>>> messageHandlers = new Dictionary<Type, Func<object, Task<MessageResult>>>();
-        private readonly IServiceProvider serviceProvider;
+        private readonly HandlerProvider handlerProvider;
 
-        public MessagingCore(IServiceProvider serviceProvider, HandlerScanner handlerScanner)
+        public MessagingCore(HandlerProvider handlerProvider, HandlerScanner handlerScanner)
         {
-            this.serviceProvider = serviceProvider;
+            this.handlerProvider = handlerProvider;
             RegisterHandlers(handlerScanner);
         }
 
@@ -44,9 +43,9 @@ namespace SMessaging.Internal
         private async Task<MessageResult> HandleMessage<TMessage, THandler>(TMessage message)
             where THandler : class, IHandleMessage<TMessage>
         {
-            using (var scope = serviceProvider.CreateScope())
+            using (var scope = handlerProvider.CreateScope())
             {
-                var handler = scope.ServiceProvider.GetService(typeof(THandler)) as THandler;
+                var handler = scope.GetService(typeof(THandler)) as THandler;
                 if (handler == null)
                 {
                     throw new MessagingInfrastructureException($"Handler '{typeof(THandler).Name}' not found");

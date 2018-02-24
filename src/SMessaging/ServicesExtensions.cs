@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+using SMessaging;
 using SMessaging.Abstractions;
 using SMessaging.Internal;
 
-namespace SMessaging
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServicesExtensions
     {
@@ -21,7 +21,7 @@ namespace SMessaging
                 services.AddTransient(item.Value);
             }
 
-            services.AddSingleton<IMessaging>(serviceProvider => new MessagingCore(serviceProvider, handlerScanner));
+            services.AddSingleton<IMessaging>(serviceProvider => new MessagingCore(new HandlerProvider(serviceProvider), handlerScanner));
         }
     }
 }

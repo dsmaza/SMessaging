@@ -9,14 +9,14 @@ namespace SMessaging.Tests.MessagingCoreTests
     [TestFixture]
     public class SendTests
     {
-        private readonly TestServiceProvider serviceProvider = new TestServiceProvider();
+        private readonly HandlerProvider handlerProvider = new HandlerProvider(new TestServiceProvider());
         private readonly HandlerScanner handlerScanner = new HandlerScanner().ScanAssembly(Assembly.GetExecutingAssembly());
 
         [Test]
         public async Task ShouldHandleMessage()
         {
             // Arrange
-            var messagingCore = new MessagingCore(serviceProvider, handlerScanner);
+            var messagingCore = new MessagingCore(handlerProvider, handlerScanner);
 
             // Act
             var result = await messagingCore.Send(new TestMessageFirst());
@@ -29,7 +29,7 @@ namespace SMessaging.Tests.MessagingCoreTests
         public void WhenHandlerNotFound_ThenThrowException()
         {
             // Arrange
-            var messagingCore = new MessagingCore(serviceProvider, handlerScanner);
+            var messagingCore = new MessagingCore(handlerProvider, handlerScanner);
 
             // Act, Assert
             Assert.ThrowsAsync<MessagingInfrastructureException>(() => messagingCore.Send(new TestMessageSecond()));
@@ -39,7 +39,7 @@ namespace SMessaging.Tests.MessagingCoreTests
         public void WhenHandlerForMessageNotFound_ThenThrowException()
         {
             // Arrange
-            var messagingCore = new MessagingCore(serviceProvider, handlerScanner);
+            var messagingCore = new MessagingCore(handlerProvider, handlerScanner);
 
             // Act, Assert
             Assert.ThrowsAsync<MessagingInfrastructureException>(() => messagingCore.Send(new TestMessageThird()));
